@@ -101,13 +101,18 @@ export const EmployeeManagement = () => {
       const row = (await form.validateFields()) as Required<Employee> & {
         password: string;
       };
-      const { role, fullname, password, email } = row;
+      const { role, fullname, password, email, current_school, internship_position, internship_start_time, internship_end_time, skills  } = row;
       const employee = {
         code: editingKey,
         role,
         email,
         fullname,
         password,
+        current_school,
+        internship_position,
+        internship_start_time,
+        internship_end_time,
+        skills
       };
 
       const result = await addEmployee(employee);
@@ -156,6 +161,46 @@ export const EmployeeManagement = () => {
     {
       title: 'Họ và tên',
       dataIndex: 'fullname',
+      editable: true,
+      type: 'string',
+
+      required: true,
+    },
+    {
+      title: 'Vị trí',
+      dataIndex: 'internship_position',
+      editable: true,
+      type: 'string',
+
+      required: true,
+    },
+    {
+      title: 'School/class',
+      dataIndex: 'current_school',
+      editable: true,
+      type: 'string',
+
+      required: true,
+    },
+    {
+      title: 'Ngày bắt đầu',
+      dataIndex: 'internship_start_time',
+      editable: true,
+      type: 'string',
+
+      required: true,
+    },
+    {
+      title: 'Ngày kết thúc',
+      dataIndex: 'internship_end_time',
+      editable: true,
+      type: 'string',
+
+      required: true,
+    },
+    {
+      title: 'Skills',
+      dataIndex: 'skills',
       editable: true,
       type: 'string',
 

@@ -46,6 +46,11 @@ model Employee {
   password    String
   fullname    String
   role        Role
+  internship_position   String?
+  current_school        String?
+  skills                String?
+  internship_start_time DateTime?
+  internship_end_time   DateTime?
   timeEntries TimeEntryProject[]
 }
 

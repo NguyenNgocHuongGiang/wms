@@ -41,7 +41,7 @@ export const employeeApi = createApi({
     }),
     addEmployee: builder.mutation<
       Response<Employee>,
-      Pick<Employee, 'code' | 'role' | 'email' | 'fullname'> & {
+      Pick<Employee, 'code' | 'role' | 'email' | 'fullname' | 'current_school' | 'internship_start_time' | 'internship_end_time' | 'internship_position' | 'skills'> & {
         password: string;
       }
     >({

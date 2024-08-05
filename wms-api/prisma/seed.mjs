@@ -25,6 +25,11 @@ const main = async () => {
           password: bcrypt.hashSync('1234567', 10),
           fullname: `${faker.person.firstName()} ${faker.person.lastName()}`,
           role: Role.EMPLOYEE,
+          internship_position: `${faker.lorem.words(2)}`, // Thêm vị trí thực tập
+          current_school: `${faker.lorem.words(2)}`, // Thêm trường học (ví dụ cho dữ liệu giả)
+          skills: `${faker.lorem.words(2)}`, // Thêm kỹ năng (dữ liệu giả)
+          internship_start_time: new Date(),
+          internship_end_time: new Date('2030-12-31'), // Thêm thời gian kết thúc thực tập
           code: `E0000${i}`,
         },
       }),
