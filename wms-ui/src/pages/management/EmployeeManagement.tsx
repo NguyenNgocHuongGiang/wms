@@ -96,12 +96,20 @@ export const EmployeeManagement = () => {
     setEmployees(employees.filter((e) => e.code !== record.code));
   };
 
+  const formatDateToISO = (dateStr: any): Date => {
+    const [day, month, year] = dateStr.split('/');
+    const monthPadded = month.padStart(2, '0');
+    const dayPadded = day.padStart(2, '0');
+    return new Date(`${year}-${monthPadded}-${dayPadded}T00:00:00.000Z`);
+  };
+  
   const applyAdd = async (key: string) => {
     try {
       const row = (await form.validateFields()) as Required<Employee> & {
         password: string;
       };
-      const { role, fullname, password, email, current_school, internship_position, internship_start_time, internship_end_time, skills  } = row;
+      const { role, fullname, password, email, current_school, internship_position, internship_start_time, internship_end_time, skills } = row;
+
       const employee = {
         code: editingKey,
         role,
@@ -186,7 +194,7 @@ export const EmployeeManagement = () => {
       title: 'Ngày bắt đầu',
       dataIndex: 'internship_start_time',
       editable: true,
-      type: 'string',
+      type: 'date',
 
       required: true,
     },
@@ -194,7 +202,7 @@ export const EmployeeManagement = () => {
       title: 'Ngày kết thúc',
       dataIndex: 'internship_end_time',
       editable: true,
-      type: 'string',
+      type: 'date',
 
       required: true,
     },
@@ -308,6 +316,7 @@ export const EmployeeManagement = () => {
       },
     },
   ];
+
   const mappedColumn: any = columns.map((col) => {
     if (!col.editable) {
       return col;
@@ -345,6 +354,7 @@ export const EmployeeManagement = () => {
   //   selectedRowKeys,
   //   onChange: onSelectChange,
   // };
+
   return (
     <Card title='Bảng Nhân viên' className='h-full'>
       <Flex vertical>
