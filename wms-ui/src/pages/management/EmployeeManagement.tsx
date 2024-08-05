@@ -32,6 +32,8 @@ import SkeletonTable, {
   SkeletonTableColumnsType,
 } from '@/components/shared/TableSkeleton';
 import { random } from 'lodash';
+import dayjs from 'dayjs';
+// import dayjs from 'dayjs';
 
 export const EmployeeManagement = () => {
   const [paginateEmployees, paginatedEmployees] =
@@ -48,7 +50,9 @@ export const EmployeeManagement = () => {
 
   const isEditing = (record: Partial<Employee>) => record.code === editingKey;
   const edit = (record: Partial<Employee>) => {
-    form.setFieldsValue({ ...record, password: '' });
+    form.setFieldsValue({ ...record, password: '',      
+      internship_start_time: dayjs(record.internship_start_time),
+      internship_end_time: dayjs(record.internship_end_time), });
     setEditingKey(record.code!);
   };
 
@@ -102,7 +106,7 @@ export const EmployeeManagement = () => {
     const dayPadded = day.padStart(2, '0');
     return new Date(`${year}-${monthPadded}-${dayPadded}T00:00:00.000Z`);
   };
-  
+
   const applyAdd = async (key: string) => {
     try {
       const row = (await form.validateFields()) as Required<Employee> & {
@@ -138,6 +142,13 @@ export const EmployeeManagement = () => {
       //
     }
   };
+
+
+  // Hàm định dạng ngày
+  // const formatDateToDisplay = (dateStr: string | Date | undefined): string => {
+  //   if (!dateStr) return '';
+  //   return dayjs(dateStr).format('YYYY-MM-DD');
+  // };
 
   const columns: (ColumnType<Partial<Employee>> & ColumnExpand)[] = [
     {
@@ -195,7 +206,10 @@ export const EmployeeManagement = () => {
       dataIndex: 'internship_start_time',
       editable: true,
       type: 'date',
-
+      render: (date: string, record: Partial<Employee>) => {
+        return dayjs(date).format('DD/MM/YYYY');
+      },
+      // render: (date: string | Date) => formatDateToDisplay(date),
       required: true,
     },
     {
@@ -203,7 +217,10 @@ export const EmployeeManagement = () => {
       dataIndex: 'internship_end_time',
       editable: true,
       type: 'date',
-
+      // render: (date: string | Date) => formatDateToDisplay(date),
+      render: (date: string, record: Partial<Employee>) => {
+        return dayjs(date).format('DD/MM/YYYY');
+      },
       required: true,
     },
     {
